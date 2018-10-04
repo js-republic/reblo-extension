@@ -11,7 +11,7 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "*"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -40,6 +40,7 @@
     "dependencies": {
         "@types/request-promise": "^4.1.42",
         "@types/uniqid": "^4.1.2",
+        "moment": "^2.22.2",
         "request-promise": "^4.2.2",
         "uniqid": "^5.0.3"
     }
