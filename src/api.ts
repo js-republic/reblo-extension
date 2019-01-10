@@ -22,6 +22,23 @@ export class Api {
       });
   }
 
+  sendLineOfCode(userId: string, lineOfCode: number): void {
+    const timestamp: number = moment().valueOf();
+    const body: RequestOptionsBody = {
+      userId,
+      timestamp,
+      lineOfCode
+    };
+
+    this.post(Endpoint.SEND_LINE_OF_CODE, 'POST', body)
+      .then((response: {}) => {
+        console.log('response', response);
+      })
+      .catch((err: {}) => {
+        console.log('err', err);
+      });
+  }
+
   sendFileChange(userId: string, filename: string, langage: string): void {
     const timestamp: number = moment().valueOf();
 

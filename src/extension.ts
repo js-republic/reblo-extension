@@ -1,16 +1,22 @@
 'use strict';
 import * as vscode from 'vscode';
 
-import { checkFileChanges, createUserId } from './utils';
+import { checkFileChanges, createUserId, handleTextDocument } from './utils';
 
 export function activate(context: vscode.ExtensionContext) {
   createUserId(context);
 
-  let disposable = vscode.window.onDidChangeActiveTextEditor(() => {
-    checkFileChanges(context);
-  });
+  const disposable = [
+    vscode.window.onDidChangeActiveTextEditor(() => {
+      checkFileChanges(context);
+    }),
+    vscode.workspace.onDidSaveTextDocument(textDocument => {
+      handleTextDocument(textDocument, context);
+    })
+  ];
 
-  context.subscriptions.push(disposable);
+  // save number of line written between two saves or Nb of line changed on save
+  context.subscriptions.push(...disposable);
 }
 
 export function deactivate() {}
