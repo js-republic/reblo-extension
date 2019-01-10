@@ -1,5 +1,5 @@
 import * as uniqid from 'uniqid';
-import { ExtensionContext, window } from 'vscode';
+import { ExtensionContext, window, TextDocument } from 'vscode';
 
 import { Api } from './api';
 
@@ -7,7 +7,7 @@ const api = new Api();
 
 export function checkFileChanges(context: ExtensionContext): void {
   const file = window.activeTextEditor;
-  const userId: string = getUserId(context);
+  const userId = getUserId(context);
 
   if (file && userId) {
     api.sendFileChange(
@@ -17,6 +17,19 @@ export function checkFileChanges(context: ExtensionContext): void {
     );
   }
 }
+let lastLineNb: { [key: string]: number } = {};
+
+export const handleTextDocument = (
+  textDocument: TextDocument,
+  context: ExtensionContext
+): void => {
+  const key = textDocument.fileName;
+  const previousLoC = lastLineNb[key] || 0;
+  const currentLoC = textDocument.lineCount - previousLoC;
+  lastLineNb[key] = textDocument.lineCount;
+  const userId = getUserId(context);
+  api.sendLineOfCode(userId, currentLoC);
+};
 
 export function createUserId(context: ExtensionContext) {
   let userId = context.workspaceState.get('userId') as string | undefined;
