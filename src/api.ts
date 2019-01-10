@@ -15,7 +15,7 @@ export class Api {
     };
     this.post(Endpoint.SEND_USER, 'POST', body)
       .then((response: {}) => {
-        console.log('response', response);
+        console.log('send user response', response);
       })
       .catch((err: {}) => {
         console.log('err', err);
@@ -32,7 +32,7 @@ export class Api {
 
     this.post(Endpoint.SEND_LINE_OF_CODE, 'POST', body)
       .then((response: {}) => {
-        console.log('response', response);
+        console.log('send line of code response', response);
       })
       .catch((err: {}) => {
         console.log('err', err);
@@ -51,7 +51,7 @@ export class Api {
 
     this.post(Endpoint.SEND_FILE_CHANGE, 'POST', body)
       .then((response: {}) => {
-        console.log('response', response);
+        console.log('Send file change response', response);
       })
       .catch((err: {}) => {
         console.log('err', err);
