@@ -9,6 +9,19 @@ import { Endpoint } from './endpoints';
 export class Api {
   private readonly apiUrl: string = config.apiUrl;
 
+  sendUser(userId: string): void {
+    const body: RequestOptionsBody = {
+      userId
+    };
+    this.post(Endpoint.SEND_USER, 'POST', body)
+      .then((response: {}) => {
+        console.log('response', response);
+      })
+      .catch((err: {}) => {
+        console.log('err', err);
+      });
+  }
+
   sendFileChange(userId: string, filename: string, langage: string): void {
     const timestamp: number = moment().valueOf();
 
@@ -40,7 +53,7 @@ export class Api {
       body
     };
 
-    console.log('request has been sent !!', options);
+    console.log('request has been sent !!', uri, options);
     return rp(options);
   }
 }

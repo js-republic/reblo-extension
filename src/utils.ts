@@ -19,9 +19,12 @@ export function checkFileChanges(context: ExtensionContext): void {
 }
 
 export function createUserId(context: ExtensionContext) {
-  if (!context.workspaceState.get('userId')) {
-    context.workspaceState.update('userId', uniqid());
+  let userId = context.workspaceState.get('userId') as string | undefined;
+  if (!userId) {
+    userId = uniqid();
+    context.workspaceState.update('userId', userId);
   }
+  api.sendUser(userId);
 }
 
 export function getUserId(context: ExtensionContext): string {
