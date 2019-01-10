@@ -1,1 +1,1 @@
-export const config = { apiUrl: 'http://b61690c1.ngrok.io' };
+export const config = { apiUrl: 'http://MY_API_URL' };
